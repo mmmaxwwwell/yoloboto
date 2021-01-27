@@ -4,14 +4,12 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 const commands = [
-    { command: '$$help', desc: 'Hey good lookin\'' },
     { command: '$$GME', desc: 'Replace GME with with your favorite stock' },
-    { command: '$$alek', desc: '😡' },
 ]
 
 const indices = [
     { idx: 'DJI', desc: 'Dow Jones Industrial Average' },
-    { idx: 'IXIC', desc: 'NASDAQ (nerds)' },
+    { idx: 'IXIC', desc: 'NASDAQ' },
     { idx: 'INX', desc: 'S&P500' },
 ]
 
@@ -48,15 +46,11 @@ const main = async () => {
         const uc = message.content.substr(2)
         const ucl = uc.toLowerCase()
         if(ucl.slice(0,1) == '^') { 
-            message.channel.send('OHHHHH Indices. Right. I\'ll get on that... 😒')
+            message.channel.send('Indices are not implemented yet')
             return
-        }
-        else if (ucl === 'help') {
+        } else if (ucl === 'help') {
             const cons = commands.reduce((prev, curr) => `${prev}\t**${curr.command}:**\t ${curr.desc}\n`, '')
             message.channel.send(`List of commands: \n${cons}`)
-            return
-        } else if (ucl === 'alek') {
-            message.channel.send('🎲🎲 glhf capitalist')
             return
         } else if (ucl === 'market') {
             if (stonkDays.includes(new Date(Date.now()).getDay())) {
@@ -73,7 +67,7 @@ const main = async () => {
                 const data = await fetch(avurl)
                 const stock = (await data.json())['Global Quote'] || {}
                 if (stock['05. price'] === undefined) {
-                    message.channel.send(`I can't find **${uc}** 🥺`)
+                    message.channel.send(`Unable to locate **${uc}**`)
                     return
                 }
 
