@@ -1,0 +1,16 @@
+{
+  "name": "yoloboto",
+  "version": "1.0.0",
+  "description": "YOLO Bot",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Scott Vaverchak",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "node-fetch": "^2.6.1"
+  }
+}
