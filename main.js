@@ -30,6 +30,11 @@ const main = async () => {
         if (message.content.substr(0, 2) === '$$') {
 
             const sym = message.content.substr(2)
+
+            if(sym === 'alek') {
+                message.channel.send('🎲🎲 glhf capitalist')
+                return
+            }
             try {
                 const avurl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&apikey=${keys['ALPHA']}&symbol=${sym}`
                 const data = await fetch(avurl)
