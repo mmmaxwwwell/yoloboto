@@ -1,8 +1,6 @@
 const { promises: fs } = require('fs')
 const fetch = require('node-fetch')
-const readline = require('readline')
 const Discord = require('discord.js');
-const { Console } = require('console');
 const client = new Discord.Client();
 
 const main = async () => {
@@ -13,19 +11,10 @@ const main = async () => {
         return prev
     }, {})
 
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    })
-
-    //for await (const line of rl) {
-
-    //}
     client.on('ready', () => {
         console.log('I am ready!');
     });
 
-    // Create an event listener for messages
     client.on('message', async message => {
         if (message.content.substr(0, 2) === '$$') {
 
