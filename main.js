@@ -63,18 +63,31 @@ const main = async () => {
             }
         } else {
             try {
-                const avurl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&apikey=${keys['ALPHA']}&symbol=${escapeHTML(uc)}`
+                const avurl = `https://cloud.iexapis.com/stable/stock/${escapeHTML(uc)}/quote?token=${keys['IEX']}`
                 const data = await fetch(avurl)
-                const stock = (await data.json())['Global Quote'] || {}
-                if (stock['05. price'] === undefined) {
+                if(!data.ok) { 
                     message.channel.send(`Unable to locate **${uc}**`)
                     return
                 }
 
-                const price = Number.parseFloat(stock['05. price'])
-                const change = Number.parseFloat(stock['09. change'])
-                const [moji, suffix] = change > 0 ? ['📈', '+'] : ['📉', '']
-                message.channel.send(`**${uc.toUpperCase()}**: ${asMoney(price)} (${suffix}${asMoney(change)}) ${moji}`)
+                const stock = await data.json()
+                const [moji, suffix] = stock.change > 0 ? ['📈', '+'] : ['📉', '']
+                message.channel.send(`**${uc.toUpperCase()}**: ${asMoney(stock.latestPrice)} (${suffix}${asMoney(stock.change)}) ${moji}`)
+
+                if(stock.isUSMarketOpen === false) {
+                    if(stock.iexRealtimePrice) {
+                        const price = stock.iexRealtimePrice
+                        const change = price - stock.latestPrice
+    
+                        const [moji, suffix] = change > 0 ? ['📈', '+'] : ['📉', '']
+                        message.channel.send(`**Premarket**: ${asMoney(price)} (${suffix}${asMoney(change)}) ${moji}`)
+                    } else {
+                        message.channel.send(`**Premarket**: Data for **${uc.toUpperCase()}** is unavilable currently`)
+                    }
+                    
+                }
+
+                
             } catch (error) {
                 message.channel.send('Oh no, I pooped myself 😞')
                 console.log(error)
