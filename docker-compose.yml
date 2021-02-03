@@ -1,0 +1,12 @@
+version: '3'
+services: 
+  yoloboto:
+    #image: mmmaxwwwell/yoloboto:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: yoloboto
+    env_file:
+      - ./settings/yoloboto
+    restart: always
+    

@@ -2,21 +2,30 @@
 
 A simple stock bot for discord.
 
-## Running the Bot
+## Prerequisites
 
-Make sure you have a secrets file with:
+* Docker
+* Docker Compose
 
-```
-IEX:<KEY>
-DISCORD:<KEY>
-```
+## Running the bot using a locally generated image
 
-Then run:
+1. Rename ```settings.example``` to ```settings```
+2. Replace the IEX and DISCORD values in ```./settings/yoloboto.env```
+3. Run ```sudo docker-compose build && sudo docker-compose up```
 
-```console
-$ npm i
-$ npm start
-```
+## Running the bot using an image from dockerhub
+1. Rename ```settings.example``` to ```settings```
+2. Replace the IEX and DISCORD values in ```./settings/yoloboto.env```
+3. In ```docker-compose.yml```, ensure services.yolobot.image is uncommented, and services.yoloboto.build and all children are commented out
+4. Run ```sudo docker-compose up```
+
+## Stopping the bot
+
+* Run ```sudo docker-compose stop```
+
+## Destroying the container
+
+* Run ```sudo docker-compose down```
 
 ## Interaction 
 

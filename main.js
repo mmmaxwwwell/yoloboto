@@ -3,7 +3,10 @@ const fetch = require('node-fetch')
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-let keys
+let keys = {
+    IEX: process.env.IEX,
+    DISCORD: process.env.DISCORD
+}
 const commands = [
     { command: '$$GME', desc: 'Replace GME with with your favorite stock' },
 ]
@@ -22,13 +25,6 @@ const escapeHTML = str => str.replace(/[&<>'"]/g,
 const asMoney = n => n.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
 const main = async () => {
-    const fileData = await (await fs.readFile('secret', 'utf8')).trim()
-    keys = fileData.split('\n').reduce((prev, curr) => {
-        const [key, value] = curr.split(':')
-        prev[key] = value
-        return prev
-    }, {})
-
     client.on('ready', () => {
         console.log('I am ready!');
     });
